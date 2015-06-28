@@ -1,4 +1,9 @@
-// Generated from /home/litvin/IdeaProjects/ANTLR/Test.g4 by ANTLR 4.5
+// Generated from /home/litvin/IdeaProjects/ANTLR/gen/generated/Test.g4 by ANTLR 4.5
+
+    import main.handle.GrammaHandler;
+    import main.handle.SadouskiParser;
+    import main.model.*;
+    
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -22,12 +27,6 @@ public interface TestVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariable(@NotNull TestParser.VariableContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TestParser#constant}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConstant(@NotNull TestParser.ConstantContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TestParser#type}.
 	 * @param ctx the parse tree
@@ -53,33 +52,69 @@ public interface TestVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(@NotNull TestParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TestParser#operation}.
+	 * Visit a parse tree produced by {@link TestParser#relation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperation(@NotNull TestParser.OperationContext ctx);
+	T visitRelation(@NotNull TestParser.RelationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TestParser#plus}.
+	 * Visit a parse tree produced by {@link TestParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPlus(@NotNull TestParser.PlusContext ctx);
+	T visitStatement(@NotNull TestParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TestParser#minus}.
+	 * Visit a parse tree produced by {@link TestParser#ifstatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMinus(@NotNull TestParser.MinusContext ctx);
+	T visitIfstatement(@NotNull TestParser.IfstatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TestParser#mult}.
+	 * Visit a parse tree produced by {@link TestParser#whilestatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMult(@NotNull TestParser.MultContext ctx);
+	T visitWhilestatement(@NotNull TestParser.WhilestatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TestParser#devide}.
+	 * Visit a parse tree produced by {@link TestParser#forstatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDevide(@NotNull TestParser.DevideContext ctx);
+	T visitForstatement(@NotNull TestParser.ForstatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TestParser#procedure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcedure(@NotNull TestParser.ProcedureContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TestParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(@NotNull TestParser.FunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TestParser#function_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_call(@NotNull TestParser.Function_callContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TestParser#parameters}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameters(@NotNull TestParser.ParametersContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TestParser#parameter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameter(@NotNull TestParser.ParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TestParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint(@NotNull TestParser.PrintContext ctx);
 }

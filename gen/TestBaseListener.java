@@ -1,4 +1,9 @@
-// Generated from /home/litvin/IdeaProjects/ANTLR/Test.g4 by ANTLR 4.5
+// Generated from /home/litvin/IdeaProjects/ANTLR/gen/generated/Test.g4 by ANTLR 4.5
+
+    import main.handle.GrammaHandler;
+    import main.handle.SadouskiParser;
+    import main.model.*;
+    
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -35,18 +40,6 @@ public class TestBaseListener implements TestListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariable(@NotNull TestParser.VariableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterConstant(@NotNull TestParser.ConstantContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConstant(@NotNull TestParser.ConstantContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -100,61 +93,133 @@ public class TestBaseListener implements TestListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperation(@NotNull TestParser.OperationContext ctx) { }
+	@Override public void enterRelation(@NotNull TestParser.RelationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperation(@NotNull TestParser.OperationContext ctx) { }
+	@Override public void exitRelation(@NotNull TestParser.RelationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPlus(@NotNull TestParser.PlusContext ctx) { }
+	@Override public void enterStatement(@NotNull TestParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPlus(@NotNull TestParser.PlusContext ctx) { }
+	@Override public void exitStatement(@NotNull TestParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMinus(@NotNull TestParser.MinusContext ctx) { }
+	@Override public void enterIfstatement(@NotNull TestParser.IfstatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMinus(@NotNull TestParser.MinusContext ctx) { }
+	@Override public void exitIfstatement(@NotNull TestParser.IfstatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMult(@NotNull TestParser.MultContext ctx) { }
+	@Override public void enterWhilestatement(@NotNull TestParser.WhilestatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMult(@NotNull TestParser.MultContext ctx) { }
+	@Override public void exitWhilestatement(@NotNull TestParser.WhilestatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDevide(@NotNull TestParser.DevideContext ctx) { }
+	@Override public void enterForstatement(@NotNull TestParser.ForstatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDevide(@NotNull TestParser.DevideContext ctx) { }
+	@Override public void exitForstatement(@NotNull TestParser.ForstatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProcedure(@NotNull TestParser.ProcedureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProcedure(@NotNull TestParser.ProcedureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction(@NotNull TestParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction(@NotNull TestParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_call(@NotNull TestParser.Function_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_call(@NotNull TestParser.Function_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParameters(@NotNull TestParser.ParametersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParameters(@NotNull TestParser.ParametersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParameter(@NotNull TestParser.ParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParameter(@NotNull TestParser.ParameterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrint(@NotNull TestParser.PrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrint(@NotNull TestParser.PrintContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

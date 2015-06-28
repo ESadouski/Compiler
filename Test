@@ -1,0 +1,13 @@
+program
+start
+int sum = 2 + 3 * 5 + 3;
+
+procedure printSum (int a )
+for (int i = 0;; i < 5; i ++)
+print(a)
+endfor
+end
+
+printSum(sum);
+
+finish

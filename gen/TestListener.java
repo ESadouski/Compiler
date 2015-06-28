@@ -1,4 +1,9 @@
-// Generated from /home/litvin/IdeaProjects/ANTLR/Test.g4 by ANTLR 4.5
+// Generated from /home/litvin/IdeaProjects/ANTLR/gen/generated/Test.g4 by ANTLR 4.5
+
+    import main.handle.GrammaHandler;
+    import main.handle.SadouskiParser;
+    import main.model.*;
+    
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -27,16 +32,6 @@ public interface TestListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariable(@NotNull TestParser.VariableContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TestParser#constant}.
-	 * @param ctx the parse tree
-	 */
-	void enterConstant(@NotNull TestParser.ConstantContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TestParser#constant}.
-	 * @param ctx the parse tree
-	 */
-	void exitConstant(@NotNull TestParser.ConstantContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TestParser#type}.
 	 * @param ctx the parse tree
@@ -78,53 +73,113 @@ public interface TestListener extends ParseTreeListener {
 	 */
 	void exitExpression(@NotNull TestParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TestParser#operation}.
+	 * Enter a parse tree produced by {@link TestParser#relation}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperation(@NotNull TestParser.OperationContext ctx);
+	void enterRelation(@NotNull TestParser.RelationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TestParser#operation}.
+	 * Exit a parse tree produced by {@link TestParser#relation}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperation(@NotNull TestParser.OperationContext ctx);
+	void exitRelation(@NotNull TestParser.RelationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TestParser#plus}.
+	 * Enter a parse tree produced by {@link TestParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterPlus(@NotNull TestParser.PlusContext ctx);
+	void enterStatement(@NotNull TestParser.StatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TestParser#plus}.
+	 * Exit a parse tree produced by {@link TestParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitPlus(@NotNull TestParser.PlusContext ctx);
+	void exitStatement(@NotNull TestParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TestParser#minus}.
+	 * Enter a parse tree produced by {@link TestParser#ifstatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterMinus(@NotNull TestParser.MinusContext ctx);
+	void enterIfstatement(@NotNull TestParser.IfstatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TestParser#minus}.
+	 * Exit a parse tree produced by {@link TestParser#ifstatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitMinus(@NotNull TestParser.MinusContext ctx);
+	void exitIfstatement(@NotNull TestParser.IfstatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TestParser#mult}.
+	 * Enter a parse tree produced by {@link TestParser#whilestatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterMult(@NotNull TestParser.MultContext ctx);
+	void enterWhilestatement(@NotNull TestParser.WhilestatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TestParser#mult}.
+	 * Exit a parse tree produced by {@link TestParser#whilestatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitMult(@NotNull TestParser.MultContext ctx);
+	void exitWhilestatement(@NotNull TestParser.WhilestatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TestParser#devide}.
+	 * Enter a parse tree produced by {@link TestParser#forstatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterDevide(@NotNull TestParser.DevideContext ctx);
+	void enterForstatement(@NotNull TestParser.ForstatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TestParser#devide}.
+	 * Exit a parse tree produced by {@link TestParser#forstatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitDevide(@NotNull TestParser.DevideContext ctx);
+	void exitForstatement(@NotNull TestParser.ForstatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TestParser#procedure}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcedure(@NotNull TestParser.ProcedureContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TestParser#procedure}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcedure(@NotNull TestParser.ProcedureContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TestParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(@NotNull TestParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TestParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(@NotNull TestParser.FunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TestParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call(@NotNull TestParser.Function_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TestParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call(@NotNull TestParser.Function_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TestParser#parameters}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameters(@NotNull TestParser.ParametersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TestParser#parameters}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameters(@NotNull TestParser.ParametersContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TestParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterParameter(@NotNull TestParser.ParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TestParser#parameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitParameter(@NotNull TestParser.ParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TestParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint(@NotNull TestParser.PrintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TestParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint(@NotNull TestParser.PrintContext ctx);
 }

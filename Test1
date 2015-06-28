@@ -1,0 +1,27 @@
+program
+start
+int sum = 2 + 3 * 5 + 3;
+int one = 5;
+int sums = sum + one;
+doc str = "abv" * "bv";
+int a = one;
+doc dddd = "sa";
+doc s, d = 6, df;
+attr at = "ads", asd, adsa;
+if (s == one )
+else s = one;
+endif
+while (s == one)
+endwhile
+for (int i = 0;; i < 5; i ++)
+endfor
+procedure div (int a,int b)
+end
+print(one)
+function int sum (int a,int b)
+if (s == one )
+endif
+int c = a;
+return a;
+int one = sum(a,b);;
+finish
