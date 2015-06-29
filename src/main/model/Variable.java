@@ -1,7 +1,7 @@
 package main.model;
 
 /**
- * Created by litvin on 21.4.15.
+ * Created by Grab on 21.4.15.
  */
 public class Variable<T> {
 

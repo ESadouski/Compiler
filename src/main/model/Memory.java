@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by litvin on 21.4.15.
+ * Created by Grab on 21.4.15.
  */
 public class Memory {
 

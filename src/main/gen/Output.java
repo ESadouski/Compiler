@@ -8,24 +8,8 @@ public class Output {
 
 int var = 2 + 3 * 5 + 3;
 
-int a = 1;
+int a = 2 + 4;
 
-int b = 2;
 
-String one = "dif";
-
-String e = "ference";
-
-String str = "sss"+ "ddd";
-sumInFunc(var,b);
-printSum(var);
-printStr(str);
-sum(a,b);
-
-int s = sum (a,b);
-difStr(one,e);
-
-String result = difStr (one,e);
-System.out.println(result);
   }
 }

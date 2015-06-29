@@ -12,16 +12,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by litvin on 27.6.15.
+ * Created by Grab on 27.6.15.
  */
-public class SadouskiParser {
+public class GrabParser {
 
     private File outputFile;
     private File functionFile;
     private StringBuilder appender = new StringBuilder();
     public boolean appenderFlag = false;
 
-    public SadouskiParser() {
+    public GrabParser() {
         outputFile = new File("/home/litvin//IdeaProjects/ANTLR/src/main/gen/Output.java");
         functionFile = new File("/home/litvin//IdeaProjects/ANTLR/src/main/gen/Functions.java");
         prepareFiles();

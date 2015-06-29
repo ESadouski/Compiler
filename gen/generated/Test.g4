@@ -5,14 +5,14 @@ options {
     }
 
 @header {
-    import main.handle.GrammaHandler;
-    import main.handle.SadouskiParser;
+    import main.handle.MemoryHandler;
+    import main.handle.GrabParser;
     import main.model.*;
     }
 
 @members {
-    private GrammaHandler handler = new GrammaHandler();
-    private SadouskiParser parser = new SadouskiParser();
+    private MemoryHandler handler = new MemoryHandler();
+    private GrabParser parser = new GrabParser();
     }
 
 
@@ -30,7 +30,7 @@ program
 
 variable
     : WS* type WS+ name     {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
-    ' = '? (value       {handler.getVarByName($name.text).setValue($value.val);}
+     ' = '? (value       {handler.getVarByName($name.text).setValue($value.val); handler.getVarByName($value.val);}
           | expression  {handler.getVarByName($name.text).setValue($expression.val);}
           | function_call {handler.getVarByName($name.text).setValue($function_call.val);}
     )?
@@ -62,7 +62,12 @@ value returns[String val, String typeOfVal]
 
 expression returns[String val]
     :  WS* s1=value WS* {$val = $s1.text;}
-    ( MATH_SYMB WS* (s2=value)* WS* {if ($s2.text!=null) {
+    ( MATH_SYMB WS* (s2=value)* WS*
+                                    {if (!$s1.typeOfVal.equals($s2.typeOfVal)) {
+                                        System.out.println("Not Valid Type!!!");
+                                        }
+                                    }
+                                    {if ($s2.text!=null) {
                                          if ($s1.typeOfVal.equals("String")){
                                             $val = $val + parser.getMathSign("String", $MATH_SYMB.text, $val, $s2.text);
                                             } else {

@@ -1,10 +1,6 @@
 // Generated from /home/litvin/IdeaProjects/ANTLR/gen/generated/Test.g4 by ANTLR 4.5
 
-    import main.handle.GrammaHandler;
-    import main.handle.SadouskiParser;
-    import main.model.*;
-    
-import org.antlr.v4.runtime.misc.NotNull;
+    import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

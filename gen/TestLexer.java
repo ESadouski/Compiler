@@ -1,14 +1,11 @@
 // Generated from /home/litvin/IdeaProjects/ANTLR/gen/generated/Test.g4 by ANTLR 4.5
 
-    import main.handle.GrammaHandler;
-    import main.handle.SadouskiParser;
-    import main.model.*;
-    
-import org.antlr.v4.runtime.Lexer;
+    import main.handle.MemoryHandler;
+    import main.handle.GrabParser;
+
+	import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.*;
+	import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
@@ -84,8 +81,8 @@ public class TestLexer extends Lexer {
 	}
 
 
-	    private GrammaHandler handler = new GrammaHandler();
-	    private SadouskiParser parser = new SadouskiParser();
+	    private MemoryHandler handler = new MemoryHandler();
+	    private GrabParser parser = new GrabParser();
 	    
 
 	public TestLexer(CharStream input) {

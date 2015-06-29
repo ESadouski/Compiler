@@ -1,27 +1,48 @@
 program
 start
-int sum = 2 + 3 * 5 + 3;
-int one = 5;
-int sums = sum + one;
-doc str = "abv" * "bv";
-int a = one;
-doc dddd = "sa";
-doc s, d = 6, df;
-attr at = "ads", asd, adsa;
-if (s == one )
-else s = one;
-endif
-while (s == one)
-endwhile
+int var = 2 + 3 * 5 + 3;
+int a = 1;
+int b = 2;
+
+String one = "dif" ;
+
+String e = "ference" ;
+
+String str = "sss" + "ddd";
+
+procedure printSum (int a )
 for (int i = 0;; i < 5; i ++)
+print(a);
 endfor
-procedure div (int a,int b)
 end
-print(one)
+
+procedure printStr (String str )
+for (int i = 0;; i < 5; i ++)
+print(str);
+endfor
+end
+
+function int sumInFunc (int a,int b)
+int c = a + b;
+return c;
+
 function int sum (int a,int b)
-if (s == one )
-endif
-int c = a;
-return a;
-int one = sum(a,b);;
+int var = a + b;
+int s = sumInFunc(var,b);;
+return s;
+
+function String difStr (String a,String b)
+String var = a + b;
+return var;
+
+printSum(var);
+
+printStr (str);
+
+int s = sum(a,b);;
+
+String result = difStr(one,e);;
+
+print(result)
+
 finish
