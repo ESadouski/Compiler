@@ -1,0 +1,2 @@
+javac IdeaProjects/ANTLR/src/main/gen/*.java
+java java IdeaProjects/ANTLR/src.main.gen.Output

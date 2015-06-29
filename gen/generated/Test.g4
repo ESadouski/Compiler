@@ -43,7 +43,7 @@ variable
     ;
 
 type
-    :   ('Node' | 'Doc' | 'Attr' | 'int' | 'String' )
+    :   ('int' | 'String' )
     ;
 
 name
@@ -51,7 +51,7 @@ name
     ;
 
 value returns[String val, String typeOfVal]
-    :   ('"'WS* STRING WS*'"'   {$val = $STRING.text; $typeOfVal = "String";}
+    :   ('"'WS* STRING WS*'"'   {$val = "\"" + $STRING.text + "\""; $typeOfVal = "String";}
     |   INT                     {$val = $INT.text; $typeOfVal = "Int";}
     |   STRING                  {$val = $STRING.text; $typeOfVal = "Var";}
     )
@@ -164,13 +164,13 @@ forstatement
        	;
 
     function_call returns[String val]
-        :   name WS* '(' WS* parameters? WS* ')' WS* ';' {parser.makeFuncCall($name.text, $parameters.val);
+        : WS* name WS* '(' WS* parameters? WS* ')' WS* ';' {parser.makeFuncCall($name.text, $parameters.val);
                                              $val=$name.text + " (" +  $parameters.val + ")";}
         ;
 
     parameters returns[String val]
-    	:	p1=parameter {$val = $p1.val;}
-    	( WS* ',' WS* p2=parameter {$val = $val + ","+ $p2.val;} WS*)
+    	:	p1=parameter {$val = $p1.val;} WS*
+    	(',' WS* p2=parameter {$val = $val + ","+ $p2.val;} WS*)
     	;
 
     parameter returns[String val]

@@ -12,11 +12,20 @@ int a = 1;
 
 int b = 2;
 
-String str = "sss".replaceAll("sss","ddd");
+String one = "dif";
+
+String e = "ference";
+
+String str = "sss"+ "ddd";
+sumInFunc(var,b);
 printSum(var);
+printStr(str);
 sum(a,b);
 
 int s = sum (a,b);
-System.out.println(s);
+difStr(one,e);
+
+String result = difStr (one,e);
+System.out.println(result);
   }
 }
