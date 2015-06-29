@@ -29,7 +29,7 @@ program
     ;
 
 variable
-    : type WS+ name     {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
+    : WS* type WS+ name     {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
     ' = '? (value       {handler.getVarByName($name.text).setValue($value.val);}
           | expression  {handler.getVarByName($name.text).setValue($expression.val);}
           | function_call {handler.getVarByName($name.text).setValue($function_call.val);}
@@ -43,17 +43,17 @@ variable
     ;
 
 type
-    :   ('node' | 'doc' | 'attr' | 'int' | 'string' )
+    :   ('Node' | 'Doc' | 'Attr' | 'int' | 'String' )
     ;
 
 name
     :   STRING
     ;
 
-value returns[String val]
-    :   ('"'WS* STRING WS*'"'   {$val = $STRING.text;}
-    |   INT                     {$val = $INT.text;}
-    |   STRING                  {$val = $STRING.text;}
+value returns[String val, String typeOfVal]
+    :   ('"'WS* STRING WS*'"'   {$val = $STRING.text; $typeOfVal = "String";}
+    |   INT                     {$val = $INT.text; $typeOfVal = "Int";}
+    |   STRING                  {$val = $STRING.text; $typeOfVal = "Var";}
     )
     ;
 
@@ -63,7 +63,12 @@ value returns[String val]
 expression returns[String val]
     :  WS* s1=value WS* {$val = $s1.text;}
     ( MATH_SYMB WS* (s2=value)* WS* {if ($s2.text!=null) {
-                                         $val = $val + " " + $MATH_SYMB.text + " " + $s2.text;
+                                         if ($s1.typeOfVal.equals("String")){
+                                            $val = $val + parser.getMathSign("String", $MATH_SYMB.text, $val, $s2.text);
+                                            } else {
+                                            $val = $val + " " + parser.getMathSign("Int", $MATH_SYMB.text, $val, $s2.text);
+                                            }
+
                                          } else {$val = $val + " " + $MATH_SYMB.text;
                                          }}
     )*
@@ -126,11 +131,11 @@ forstatement
         {parser.makeLoopHeaderParams($relation.strValF, $relation.sign, $relation.strValS, $expression.val, handler.scope);}
         (WS*
          variable
-                 | expression WS*
+                 | expression {parser.makeRelationBody($expression.val, handler.scope);} WS*
                  | function_call
                  | statement
                  | print
-         WS* ';' {parser.makeRelationBody($expression.val, handler.scope);})* WS*
+         WS* ';' )* WS*
         'endfor' WS* {parser.closeRelation(handler.scope);}
     ;
 

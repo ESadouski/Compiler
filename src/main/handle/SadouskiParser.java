@@ -24,7 +24,7 @@ public class SadouskiParser {
     public SadouskiParser() {
         outputFile = new File("/home/litvin//IdeaProjects/ANTLR/src/main/gen/Output.java");
         functionFile = new File("/home/litvin//IdeaProjects/ANTLR/src/main/gen/Functions.java");
-        prepareFiles(); //prepare ur anus
+        prepareFiles();
     }
 
     public void write(String s) {
@@ -38,6 +38,30 @@ public class SadouskiParser {
             builder.append("\n" + var.getType() + " "+ var.getName() + " = " + var.getValue() + ";");
         }
         checkFunc(scope, builder.toString());
+    }
+
+    public String getMathSign(String typeVar, String sign, String firstVal, String secondVal){
+        String math;
+        if (typeVar.equals("String")) {
+            math = makeMathStr(sign,firstVal, secondVal);
+        } else {
+            math = makeMathInt(sign) + " " + secondVal;
+        }
+       return math;
+    }
+
+    private String makeMathStr(String sign, String firstVal, String secondVal) {
+        String mathSign = new String();
+        if (sign.equals("+")){
+            mathSign = "+ " + secondVal;
+        } else if (sign.equals("-")) {
+            mathSign = ".replaceAll("+ firstVal + "," + secondVal + ")";
+        }
+        return mathSign;
+    }
+
+    private String makeMathInt(String sign) {
+        return sign;
     }
 
     private LinkedList findVarByScope(String scope) {
@@ -120,7 +144,8 @@ public class SadouskiParser {
         cleanFile(functionFile);
         cleanFile(outputFile);
         writeInFile("package main.gen;\n" +
-                "\nimport static main.gen.Functions.*;\n\n", outputFile);
+                "\nimport org.w3c.dom.*;" +
+                "import static main.gen.Functions.*;\n\n", outputFile);
         writeInFile("public class Output {", outputFile);
         writeInFile("  public static void main(String[] args) {", outputFile);
         writeInFile("package main.gen;\n\npublic class Functions {", functionFile);
