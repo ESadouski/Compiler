@@ -18,18 +18,18 @@ options {
 
 
 program
-    :   'program' {parser.prepareFiles();} WS*
+    :   'program' {parser.prepareFiles();}
 
-        'start' WS*
+        'start'
 
-            (variable | expression | statement | function | procedure | function_call | print)* WS*
+            (variable | expression | statement | function | procedure | function_call | print)*
 
 
         'finish' {parser.closeFiles();}{handler.test();}
     ;
 
 variable
-    : WS* type WS+ name     {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
+    : type name     {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
      ' = '? (value       {handler.getVarByName($name.text).setValue($value.val); handler.getVarByName($value.val);}
           | expression  {handler.getVarByName($name.text).setValue($expression.val);}
           | function_call {handler.getVarByName($name.text).setValue($function_call.val);}
@@ -39,7 +39,7 @@ variable
           | expression  {handler.getVarByName($name.text).setValue($expression.val);}
           | function_call {handler.getVarByName($name.text).setValue($function_call.val);}
     )?
-    )* WS* ';' WS* {parser.writeVariables(handler.scope);}
+    )* ';' {parser.writeVariables(handler.scope);}
     ;
 
 type
@@ -51,7 +51,7 @@ name
     ;
 
 value returns[String val, String typeOfVal]
-    :   ('"'WS* STRING WS*'"'   {$val = "\"" + $STRING.text + "\""; $typeOfVal = "String";}
+    :   ('"' STRING'"'   {$val = "\"" + $STRING.text + "\""; $typeOfVal = "String";}
     |   INT                     {$val = $INT.text; $typeOfVal = "Int";}
     |   STRING                  {$val = $STRING.text; $typeOfVal = "Var";}
     )
@@ -61,12 +61,8 @@ value returns[String val, String typeOfVal]
 //-------------------
 
 expression returns[String val]
-    :  WS* s1=value WS* {$val = $s1.text;}
-    ( MATH_SYMB WS* (s2=value)* WS*
-                                    {if (!$s1.typeOfVal.equals($s2.typeOfVal)) {
-                                        System.out.println("Not Valid Type!!!");
-                                        }
-                                    }
+    :  s1=value {$val = $s1.text;}
+    ( MATH_SYMB (s2=value)*
                                     {if ($s2.text!=null) {
                                          if ($s1.typeOfVal.equals("String")){
                                             $val = $val + parser.getMathSign("String", $MATH_SYMB.text, $val, $s2.text);
@@ -80,14 +76,14 @@ expression returns[String val]
     ;
 
 relation returns[String strValF, String strValS, String typeOfValue, String sign]
-	:	WS* v1=value WS*
+	:	v1=value
 	(('==' {$sign="==";}
 	| '!=' {$sign="!=";}
 	| '<' {$sign="<";}
 	| '<=' {$sign="<=";}
 	| '>=' {$sign=">=";}
-	| '>' {$sign=">";}) WS*
-	 v2=value WS* {$strValF = $v1.val; $strValS = $v2.val;}
+	| '>' {$sign=">";})
+	 v2=value {$strValF = $v1.val; $strValS = $v2.val;}
 	)*
 	;
 
@@ -100,92 +96,92 @@ statement
     ;
 
 ifstatement
-    :   'if' WS* '(' WS* relation {parser.makeRelationHeader($relation.strValF, $relation.strValS, "if", handler.scope);}
-     WS* ')' WS*
+    :   'if' '(' relation {parser.makeRelationHeader($relation.strValF, $relation.strValS, "if", handler.scope);}
+     ')'
         (variable
-        | expression WS*
+        | expression
         | function_call
         | statement
         | print
-         ';' {parser.makeRelationBody($expression.val, handler.scope);} )* WS*
-        ('else' WS*
+         ';' {parser.makeRelationBody($expression.val, handler.scope);} )*
+        ('else'
          variable
-                 | expression WS*
+                 | expression
                  | function_call
                  | statement
                  | print
-         WS* ';' {parser.makeRelationBody(" } else {" + $expression.val + " }", handler.scope);})* WS*
-        'endif' WS*
+         ';' {parser.makeRelationBody(" } else {" + $expression.val + " }", handler.scope);})*
+        'endif'
     ;
 
 
 whilestatement
-    :   'while' WS* '(' WS* relation WS* {parser.makeRelationHeader($relation.strValF, $relation.strValS, "while", handler.scope);}')' WS*
-        (WS*
+    :   'while' '(' relation {parser.makeRelationHeader($relation.strValF, $relation.strValS, "while", handler.scope);}')'
+        (
          variable
-                 | expression WS*
+                 | expression
                  | function_call
                  | statement
                  | print
-         WS* ';' {parser.makeRelationBody($expression.val, handler.scope);})* WS*
-        'endwhile' WS* {parser.closeRelation(handler.scope);}
+         ';' {parser.makeRelationBody($expression.val, handler.scope);})*
+        'endwhile' {parser.closeRelation(handler.scope);}
     ;
 
 forstatement
-    :   'for' WS* '(' {parser.makeLoopHeader(handler.scope);} WS* variable WS* ';' WS* relation WS* ';' WS* expression WS* ')' WS*
+    :   'for' '(' {parser.makeLoopHeader(handler.scope);} variable ';'* relation ';' expression ')'
         {parser.makeLoopHeaderParams($relation.strValF, $relation.sign, $relation.strValS, $expression.val, handler.scope);}
-        (WS*
+        (
          variable
-                 | expression {parser.makeRelationBody($expression.val, handler.scope);} WS*
+                 | expression {parser.makeRelationBody($expression.val, handler.scope);}
                  | function_call
                  | statement
                  | print
-         WS* ';' )* WS*
-        'endfor' WS* {parser.closeRelation(handler.scope);}
+         ';' )*
+        'endfor' {parser.closeRelation(handler.scope);}
     ;
 
 //-------------
     procedure
-    	:	'procedure' WS+ name {handler.scope = $name.text;}
-    	    WS* '(' WS* parameters?  WS*')' {parser.makeProcedureHeader($name.text, $parameters.val);} WS*
+    	:	'procedure' name {handler.scope = $name.text;}
+    	    '(' parameters? ')' {parser.makeProcedureHeader($name.text, $parameters.val);}
     		(variable
-                     | expression WS*
+                     | expression
                      | function_call
                      | statement
-                     | print)* WS*
-    		'end' {parser.closeProcedure();} {handler.scope = "global";}WS*
+                     | print)*
+    		'end' {parser.closeProcedure();} {handler.scope = "global";}
     	;
 
 
     function returns[String val]
-    	:	'function' WS+ type WS+ name {handler.scope = $name.text;}
-    	WS* '(' WS* parameters? WS* ')' {parser.makeFuncHeader($type.text + " " + $name.text, $parameters.val);} WS*
+    	:	'function' type name {handler.scope = $name.text;}
+    	    '(' parameters? ')' {parser.makeFuncHeader($type.text + " " + $name.text, $parameters.val);}
     		(variable
-                     | expression WS*
+                     | expression
                      | function_call
                      | statement
-                     | print)* WS*
-    		'return' WS+ expression WS* ';' {parser.closeFunc($expression.val);} {handler.scope = "global";} WS*
+                     | print)*
+    		'return' expression ';' {parser.closeFunc($expression.val);} {handler.scope = "global";}
        	;
 
     function_call returns[String val]
-        : WS* name WS* '(' WS* parameters? WS* ')' WS* ';' {parser.makeFuncCall($name.text, $parameters.val);
+        : name '(' parameters? ')' ';' {parser.makeFuncCall($name.text, $parameters.val, handler.scope);
                                              $val=$name.text + " (" +  $parameters.val + ")";}
         ;
 
     parameters returns[String val]
-    	:	p1=parameter {$val = $p1.val;} WS*
-    	(',' WS* p2=parameter {$val = $val + ","+ $p2.val;} WS*)
+    	:	p1=parameter {$val = $p1.val;}
+    	(',' p2=parameter {$val = $val + ","+ $p2.val;})*
     	;
 
     parameter returns[String val]
-    	:	(type WS* {$val = $type.text + " ";})* name { if($val ==null) {
+    	:	(type {$val = $type.text + " ";})* name { if($val ==null) {
     	                                                                  $val = $name.text;
     	                                                                  } else $val = $val + $name.text;}
     	;
 
     print
-        : 'print' WS* '(' WS* expression WS* ')' {parser.print(handler.scope, $expression.val);}
+        : 'print' '(' expression ')' {parser.print(handler.scope, $expression.val);}
         ;
 
 
@@ -195,5 +191,5 @@ forstatement
     STRING : ([a-z] | [A-Z])+;
     INT : [0-9]+;
     WORD : 'a'..'z'+;
-    WS : (' ' | '\t' | '\n' | '\r' | '\t')*;
+    WS : (' ' | '\t' | '\n' | '\r' | '\t')* -> skip;
     SYMB : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

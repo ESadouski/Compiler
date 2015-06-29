@@ -1,5 +1,9 @@
 // Generated from /home/litvin/IdeaProjects/ANTLR/gen/generated/Test.g4 by ANTLR 4.5
 
+    import main.handle.MemoryHandler;
+    import main.handle.GrabParser;
+    import main.model.*;
+    
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;

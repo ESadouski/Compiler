@@ -126,8 +126,10 @@ public class GrabParser {
         writeInFile("return " + expression + ";\n}", functionFile);
     }
 
-    public void makeFuncCall(String name, String params) {
-        writeInFile(name + "(" + params + ");", outputFile);
+    public void makeFuncCall(String name, String params, String scope) {
+        if (scope.equals("global")) {
+            writeInFile(name + "(" + params + ");", outputFile);
+        }
     }
 
     private void writeInFile(String str, File file) {
