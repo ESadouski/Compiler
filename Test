@@ -3,5 +3,5 @@ start
 int var = 2 + 3 * 5 + 3;
 int a = 2 + 4;
 int a = b;
-int a = 2 + "sss";
+int a = "sss";
 finish

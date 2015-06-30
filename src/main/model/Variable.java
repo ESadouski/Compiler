@@ -17,6 +17,14 @@ public class Variable<T> {
         this.scope = scope;
     }
 
+    public Variable(String name, String type, T value, String scope) {
+        this.name = name;
+        this.type = type;
+        this.value = value;
+        this.scope = scope;
+
+    }
+
     public boolean isAssignment() {
         return assignment;
     }
@@ -31,14 +39,6 @@ public class Variable<T> {
 
     public void setScope(String scope) {
         this.scope = scope;
-    }
-
-    public Variable(String name, String type, T value, String scope) {
-        this.name = name;
-        this.type = type;
-        this.value = value;
-        this.scope = scope;
-
     }
 
     public String getName() {

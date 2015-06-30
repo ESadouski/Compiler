@@ -15,8 +15,8 @@ public static void printStr (String str) {
 
 for (
 
-int j = 0;
-j < 5; j ++) {
+int i = 0;
+i < 5; i ++) {
 System.out.println(str);
 }
 
@@ -30,7 +30,7 @@ public static int sum (int a,int b) {
 
 int var = a + b;
 
-int s = sumInFunc (var,b);
+int s = sumInFunc (var,b);;
 return s;
 }
 public static String difStr (String a,String b) {

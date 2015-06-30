@@ -178,7 +178,6 @@ public class GrabParser {
     }
 
     public void print(String scope, String name) {
-        System.out.println(scope);
         checkFunc(scope, "System.out.println(" + name + ");");
     }
 

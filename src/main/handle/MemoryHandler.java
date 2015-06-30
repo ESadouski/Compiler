@@ -9,31 +9,20 @@ public class MemoryHandler {
 
     public String scope = "global";
 
-    public void addVar(Variable variable) {
-        if (Memory.vars.get(variable.getName()) == null && !variable.getScope().equals(Memory.vars.get(variable.getName()))) {
-            Memory.vars.put(variable.getName(), variable);
+    public void addVar(Variable variable, String scope) {
+        if (Memory.vars.get(variable.getName() + scope) == null && !variable.getScope().equals(Memory.vars.get(variable.getName() + scope))) {
+            Memory.vars.put(variable.getName() + scope, variable);
         } else {
-            System.out.println("Variable Already Exists!!!");
+            System.out.println("!!! Exception: variable " + variable.getName() + " already exists");
         }
 
     }
 
-    public Variable getVar(Variable variable) {
-        if (Memory.vars.get(variable.getName()) != null) {
-            return Memory.vars.get(variable.getName());
-        } else {
-            System.out.println("No variable!!!");
-            return Memory.vars.get(variable.getName());
+    public Variable getVarByName(String name, String scope) {
+        if (Memory.vars.get(name + scope) == null) {
+            System.out.println("!!! Exception: variable " + name + " was not exists");
         }
-    }
-
-    public Variable getVarByName(String name) {
-        if (Memory.vars.get(name) != null) {
-            return Memory.vars.get(name);
-        } else {
-            System.out.println("No variable!!!");
-            return Memory.vars.get(name);
-        }
+            return Memory.vars.get(name + scope);
     }
 
     public static void test() {
@@ -41,7 +30,4 @@ public class MemoryHandler {
         System.out.println("ok");
     }
 
-    public static void main(String[] args) {
-        test();
-    }
 }

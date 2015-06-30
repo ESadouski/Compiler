@@ -25,19 +25,23 @@ program
             (variable | expression | statement | function | procedure | function_call | print)*
 
 
-        'finish' {parser.closeFiles();}{handler.test();}
+        'finish' {parser.closeFiles();}{System.out.println("Generation completed");}
     ;
 
 variable
-    : type name     {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
-     ' = '? (value       {handler.getVarByName($name.text).setValue($value.val); handler.getVarByName($value.val);}
-          | expression  {handler.getVarByName($name.text).setValue($expression.val);}
-          | function_call {handler.getVarByName($name.text).setValue($function_call.val);}
+    : type name     {handler.addVar(new Variable($name.text, $type.text, handler.scope), handler.scope);}
+     ' = '? (value       {handler.getVarByName($name.text, handler.scope).setValue($value.val);}
+                          {if ("Var".equals($value.typeOfVal)) {
+                          handler.getVarByName($value.val, handler.scope);
+                            }
+                          }
+          | expression  {handler.getVarByName($name.text, handler.scope).setValue($expression.val);}
+          | function_call {handler.getVarByName($name.text, handler.scope).setValue($function_call.val);}
     )?
-    (', ' name          {handler.addVar(new Variable($name.text, $type.text, handler.scope));}
-    ' = '? (value       {handler.getVarByName($name.text).setValue($value.val);}
-          | expression  {handler.getVarByName($name.text).setValue($expression.val);}
-          | function_call {handler.getVarByName($name.text).setValue($function_call.val);}
+    (', ' name          {handler.addVar(new Variable($name.text, $type.text, handler.scope), handler.scope);}
+    ' = '? (value       {handler.getVarByName($name.text, handler.scope).setValue($value.val);}
+          | expression  {handler.getVarByName($name.text, handler.scope).setValue($expression.val);}
+          | function_call {handler.getVarByName($name.text, handler.scope).setValue($function_call.val);}
     )?
     )* ';' {parser.writeVariables(handler.scope);}
     ;
@@ -99,19 +103,19 @@ ifstatement
     :   'if' '(' relation {parser.makeRelationHeader($relation.strValF, $relation.strValS, "if", handler.scope);}
      ')'
         (variable
-        | expression
-        | function_call
+        | expression {parser.makeRelationBody(" } else {" + $expression.val + " }", handler.scope);}
+        | function_call {parser.makeRelationBody(" } else {" + $function_call.val + " }", handler.scope);}
         | statement
         | print
-         ';' {parser.makeRelationBody($expression.val, handler.scope);} )*
+         ';')*
         ('else'
          variable
-                 | expression
-                 | function_call
+                 | expression {parser.makeRelationBody(" } else {" + $expression.val + " }", handler.scope);}
+                 | function_call {parser.makeRelationBody(" } else {" + $function_call.val + " }", handler.scope);}
                  | statement
                  | print
-         ';' {parser.makeRelationBody(" } else {" + $expression.val + " }", handler.scope);})*
-        'endif'
+         ';' )*
+        'endif' {parser.closeRelation(handler.scope);}
     ;
 
 
@@ -119,11 +123,11 @@ whilestatement
     :   'while' '(' relation {parser.makeRelationHeader($relation.strValF, $relation.strValS, "while", handler.scope);}')'
         (
          variable
-                 | expression
-                 | function_call
+                 | expression {parser.makeRelationBody(" } else {" + $expression.val + " }", handler.scope);}
+                 | function_call {parser.makeRelationBody(" } else {" + $function_call.val + " }", handler.scope);}
                  | statement
                  | print
-         ';' {parser.makeRelationBody($expression.val, handler.scope);})*
+         ';' )*
         'endwhile' {parser.closeRelation(handler.scope);}
     ;
 
@@ -165,8 +169,8 @@ forstatement
        	;
 
     function_call returns[String val]
-        : name '(' parameters? ')' ';' {parser.makeFuncCall($name.text, $parameters.val, handler.scope);
-                                             $val=$name.text + " (" +  $parameters.val + ")";}
+        : name '(' parameters? ')' ';'* {parser.makeFuncCall($name.text, $parameters.val, handler.scope);
+                                             $val=$name.text + " (" +  $parameters.val + ");";}
         ;
 
     parameters returns[String val]
@@ -181,7 +185,7 @@ forstatement
     	;
 
     print
-        : 'print' '(' expression ')' {parser.print(handler.scope, $expression.val);}
+        : 'print' '(' expression ')' {parser.print(handler.scope, $expression.val);} ';'*
         ;
 
 
@@ -192,4 +196,3 @@ forstatement
     INT : [0-9]+;
     WORD : 'a'..'z'+;
     WS : (' ' | '\t' | '\n' | '\r' | '\t')* -> skip;
-    SYMB : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
